@@ -1,0 +1,27 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateRemindersTables extends Migration
+{
+    public function up()
+    {
+        Schema::create('reminders', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('remindable_id')->unsigned();
+            $table->string('remindable_type');
+            $table->string('notes');
+            $table->string('status', 15);
+            $table->timestamps();
+
+            $table->index(['remindable_type', 'remindable_id', 'status']);
+        });
+    }
+
+    public function down()
+    {
+        Schema::drop('reminders');
+    }
+}
